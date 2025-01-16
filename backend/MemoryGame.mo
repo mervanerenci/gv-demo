@@ -6,6 +6,7 @@ import Nat "mo:base/Nat";
 import Text "mo:base/Text";
 import Int "mo:base/Int";
 import Principal "mo:base/Principal";
+import Option "mo:base/Option";
 
 
 
@@ -199,13 +200,13 @@ actor MemoryGame {
                     return "Not your turn";
                 };
 
-                if (cardIndex >= room.gameBoard.size()) {
-                    return "Invalid card index";
-                };
+                // Count currently revealed unmatched cards
+                let currentlyRevealed = Array.filter<Card>(room.gameBoard, func(c: Card) { 
+                    c.revealed and Option.isNull(Array.find<Card>(room.gameBoard, func(m: Card) { 
+                        m.id != c.id and m.revealed and m.value == c.value 
+                    }))
+                });
 
-                // Get currently revealed cards
-                let revealedCards = Array.filter<Card>(room.gameBoard, func(c: Card) { c.revealed });
-                
                 // Reveal the new card
                 let updatedGameBoard = Array.tabulate<Card>(room.gameBoard.size(), func(i) {
                     if (i == cardIndex) {
@@ -219,11 +220,16 @@ actor MemoryGame {
                     }
                 });
 
-                // After revealing new card, check if we have two cards revealed
-                let newRevealedCards = Array.filter<Card>(updatedGameBoard, func(c: Card) { c.revealed });
+                // Check for a potential match
+                let newRevealedCards = Array.filter<Card>(updatedGameBoard, func(c: Card) { 
+                    c.revealed and Option.isNull(Array.find<Card>(updatedGameBoard, func(m: Card) { 
+                        m.id != c.id and m.revealed and m.value == c.value 
+                    }))
+                });
+
                 if (newRevealedCards.size() == 2) {
                     if (newRevealedCards[0].value == newRevealedCards[1].value) {
-                        // Match found - update score and keep cards revealed
+                        // Match found - update score
                         let updatedPlayers = Array.map<Player, Player>(room.players, func(p: Player): Player {
                             if (p.id == playerId) {
                                 { id = p.id; score = p.score + 1 }
@@ -235,13 +241,21 @@ actor MemoryGame {
                         rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
                             players = updatedPlayers;
                             gameBoard = updatedGameBoard;
-                            currentPlayer = playerId;  // Keep turn if matched
+                            currentPlayer = playerId;  // Keep turn after match
                             gameStarted = room.gameStarted;
                         }).0;
                     } else {
-                        // No match - set both cards to unrevealed and switch turns
+                        // No match - reset unmatched cards and switch turns
                         let finalGameBoard = Array.map<Card, Card>(updatedGameBoard, func(c: Card): Card {
-                            { id = c.id; value = c.value; revealed = false }
+                            if (Array.find<Card>(updatedGameBoard, func(m: Card) { 
+                                m.id != c.id and m.revealed and m.value == c.value 
+                            }) != null) {
+                                // Keep matched pairs revealed
+                                c
+                            } else {
+                                // Reset unmatched cards
+                                { id = c.id; value = c.value; revealed = false }
+                            }
                         });
                         
                         let nextPlayer = Array.find<Player>(room.players, func(p: Player) { p.id != playerId });
@@ -258,11 +272,11 @@ actor MemoryGame {
                         };
                     };
                 } else {
-                    // First card of the pair - just update the board
+                    // First card of the pair
                     rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
                         players = room.players;
                         gameBoard = updatedGameBoard;
-                        currentPlayer = playerId;  // Keep turn for second card
+                        currentPlayer = playerId;
                         gameStarted = room.gameStarted;
                     }).0;
                 };
