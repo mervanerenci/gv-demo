@@ -1,0 +1,243 @@
+.memory-game {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .game-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .player {
+    padding: 15px 25px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+  }
+  
+  .player.active {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .game-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card {
+    aspect-ratio: 3/4;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+  
+  .card:hover .card-inner {
+    transform: scale(1.05);
+  }
+  
+  .card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 10px;
+  }
+  
+  .card-front {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+  }
+  
+  .card-back {
+    background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  
+  
+  .card.matched .card-inner {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+  }
+  
+  .card.matched .card-back {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    opacity: 0.8;
+  }
+
+  .game-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .game-over-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .game-over-modal h2 {
+    margin: 0 0 1rem 0;
+    color: #333;
+  }
+  
+  .game-over-modal p {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .game-over-modal button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .game-over-modal button:hover {
+    background: #45a049;
+  }
+
+  .waiting-screen {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 400px;
+  }
+
+  .turn-indicator {
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #f0f0f0;
+    transition: all 0.3s ease;
+  }
+
+  .turn-indicator.my-turn {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+  }
+
+  /* .card-front {
+    background-color: #e0e0e0;
+    color: #666;
+    font-weight: bold;
+  }
+  
+  .card-back {
+    color: #333;
+    font-weight: bold;
+    font-size: 28px;
+    transform: rotateY(180deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card.matched .card-back {
+    opacity: 0.8;
+  } */
+
+  .login-screen {
+    text-align: center;
+    padding: 2rem;
+    max-width: 400px;
+    margin: 4rem auto;
+  }
+
+  .login-button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .login-button:hover {
+    background: #4338ca;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .logout-button {
+    padding: 0.5rem 1rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .logout-button:hover {
+    background: #dc2626;
+  }
+
+  .game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 1000;
+  }
