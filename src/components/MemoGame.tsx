@@ -82,26 +82,29 @@ const MemoryGame: React.FC = () => {
   useEffect(() => {
     if (!isAuthenticated || !gameId || !backendActor) return;
     
-    refreshGameState(); // Initial fetch
-    const intervalId = setInterval(refreshGameState, 1000);
-    console.log("game state2", gameState);
-    return () => clearInterval(intervalId);
-    
+    const pollInterval = setInterval(async () => {
+        const newState = await backendActor.viewGame(gameId);
+        setGameState({
+            gameBoard: newState.gameBoard.map((card: { id: bigint; value: string; revealed: boolean }) => ({
+                ...card,
+                id: Number(card.id)
+            })),
+            currentPlayer: newState.currentPlayer.toString(),
+            players: newState.players.map((player: { id: Principal; score: bigint }) => ({
+                id: player.id.toString(),
+                score: Number(player.score)
+            })),
+            gameStarted: newState.gameStarted
+        });
+    }, 500);
+
+    return () => clearInterval(pollInterval);
   }, [isAuthenticated, gameId, backendActor]);
 
   const handleCardClick = async (cardIndex: number) => {
     try {
       if (!gameId || isProcessingMove) return;
-      console.log("game id", gameId);
-      
-      //const currentPrincipal = await backendActor?.whoami().toString();
-      //if (gameState?.currentPlayer !== currentPrincipal) {
-      //  setError("It's not your turn!");
-      //  return;
-      //}
-
       if (!gameState) return;
-      console.log("game state3", gameState);
 
       if (gameState.gameBoard[cardIndex].revealed) {
         setError("This card is already revealed!");
@@ -117,17 +120,17 @@ const MemoryGame: React.FC = () => {
         
         // Wait for animation before checking match
         setTimeout(async () => {
-          await refreshGameState();
           const newState = await backendActor.viewGame(gameId);
           
-          // If cards don't match, hide them after delay
+          // If cards don't match, show second card briefly before hiding both
           if (!newState?.gameBoard[cardIndex].revealed) {
-            setTimeout(() => {
-              setTemporaryRevealedCards([]);
-            }, 1000);
+            // Keep both cards visible for a moment
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setTemporaryRevealedCards([]);
           } else {
             setTemporaryRevealedCards([]);
           }
+          await refreshGameState();
           setIsProcessingMove(false);
         }, 500);
       } else {
@@ -167,10 +170,10 @@ const MemoryGame: React.FC = () => {
       <div className="game-header">
         <div className="scores-container">
           <div className={`score ${isMyTurn ? 'active' : ''}`}>
-            You: {gameState?.players.find(p => p.id === currentPrincipal)?.score || 0}
+            Player 1: {gameState?.players.find(p => p.id === currentPrincipal)?.score || 0}
           </div>
           <div className={`score ${!isMyTurn ? 'active' : ''}`}>
-            Opponent: {gameState?.players.find(p => p.id !== currentPrincipal)?.score || 0}
+            Player 2: {gameState?.players.find(p => p.id !== currentPrincipal)?.score || 0}
           </div>
         </div>
         

@@ -7,6 +7,7 @@ import Text "mo:base/Text";
 import Int "mo:base/Int";
 import Principal "mo:base/Principal";
 import Option "mo:base/Option";
+import Timer "mo:base/Timer";
 
 
 
@@ -35,6 +36,7 @@ actor MemoryGame {
 
     // Tüm odaları tutan harita
     var rooms: Trie.Trie<Text, Room> = Trie.empty();
+    var pendingTimers: Trie.Trie<Text, Timer.TimerId> = Trie.empty();
 
     // Oda oluşturma
     public shared(msg) func createRoom(): async Text {
@@ -220,18 +222,9 @@ actor MemoryGame {
         let roomOpt = Trie.get(rooms, keyText(roomId), Text.equal);
         
         switch (roomOpt) {
-            case null { return "Room not found" };
             case (?room) {
-                if (room.currentPlayer != playerId) {
-                    return "Not your turn";
-                };
-
-                // Count currently revealed unmatched cards
-                let currentlyRevealed = Array.filter<Card>(room.gameBoard, func(c: Card) { 
-                    c.revealed and Option.isNull(Array.find<Card>(room.gameBoard, func(m: Card) { 
-                        m.id != c.id and m.revealed and m.value == c.value 
-                    }))
-                });
+                // Count currently revealed cards
+                let currentlyRevealed = Array.filter<Card>(room.gameBoard, func(c: Card) { c.revealed });
 
                 // Reveal the new card
                 let updatedGameBoard = Array.tabulate<Card>(room.gameBoard.size(), func(i) {
@@ -246,69 +239,72 @@ actor MemoryGame {
                     }
                 });
 
-                // Check for a potential match
-                let newRevealedCards = Array.filter<Card>(updatedGameBoard, func(c: Card) { 
-                    c.revealed and Option.isNull(Array.find<Card>(updatedGameBoard, func(m: Card) { 
-                        m.id != c.id and m.revealed and m.value == c.value 
-                    }))
-                });
+                // Update room with revealed card
+                rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
+                    players = room.players;
+                    gameBoard = updatedGameBoard;
+                    currentPlayer = room.currentPlayer;
+                    gameStarted = room.gameStarted;
+                }).0;
 
-                if (newRevealedCards.size() == 2) {
-                    if (newRevealedCards[0].value == newRevealedCards[1].value) {
-                        // Match found - update score
-                        let updatedPlayers = Array.map<Player, Player>(room.players, func(p: Player): Player {
-                            if (p.id == playerId) {
-                                { id = p.id; score = p.score + 1 }
+                // If this is the second card
+                if (currentlyRevealed.size() == 1) {
+                    let firstCard = currentlyRevealed[0];
+                    let secondCard = updatedGameBoard[cardIndex];
+                    
+                    if (firstCard.value != secondCard.value) {
+                        let timerId = Timer.setTimer<system>(#seconds(2), func() : async () {
+                            await hideCards(roomId, firstCard.id, secondCard.id);
+                            
+                            // Switch turn after hiding cards
+                            let nextPlayer = if (room.players[0].id == playerId) {
+                                room.players[1].id;
                             } else {
-                                p
-                            }
-                        });
-                        
-                        rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
-                            players = updatedPlayers;
-                            gameBoard = updatedGameBoard;
-                            currentPlayer = playerId;  // Keep turn after match
-                            gameStarted = room.gameStarted;
-                        }).0;
-                    } else {
-                        // No match - reset unmatched cards and switch turns
-                        let finalGameBoard = Array.map<Card, Card>(updatedGameBoard, func(c: Card): Card {
-                            if (Array.find<Card>(updatedGameBoard, func(m: Card) { 
-                                m.id != c.id and m.revealed and m.value == c.value 
-                            }) != null) {
-                                // Keep matched pairs revealed
-                                c
-                            } else {
-                                // Reset unmatched cards
-                                { id = c.id; value = c.value; revealed = false }
-                            }
-                        });
-                        
-                        let nextPlayer = Array.find<Player>(room.players, func(p: Player) { p.id != playerId });
-                        switch (nextPlayer) {
-                            case (?p) {
-                                rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
-                                    players = room.players;
-                                    gameBoard = finalGameBoard;
-                                    currentPlayer = p.id;
-                                    gameStarted = room.gameStarted;
-                                }).0;
+                                room.players[0].id;
                             };
-                            case null {};
-                        };
-                    };
-                } else {
-                    // First card of the pair
-                    rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
-                        players = room.players;
-                        gameBoard = updatedGameBoard;
-                        currentPlayer = playerId;
-                        gameStarted = room.gameStarted;
-                    }).0;
+                            
+                            rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
+                                players = room.players;
+                                gameBoard = room.gameBoard;
+                                currentPlayer = nextPlayer;
+                                gameStarted = room.gameStarted;
+                            }).0;
+                        });
+                        pendingTimers := Trie.put(pendingTimers, keyText(roomId), Text.equal, timerId).0;
+                    }
                 };
-
+                
                 return "Move completed";
             };
+            case null return "Room not found";
+        };
+    };
+
+    // New helper function to hide cards
+    private func hideCards(roomId: Text, card1Id: Nat, card2Id: Nat) : async () {
+        let roomOpt = Trie.get(rooms, keyText(roomId), Text.equal);
+        switch (roomOpt) {
+            case (?room) {
+                let updatedGameBoard = Array.tabulate<Card>(room.gameBoard.size(), func(i) {
+                    if (i == card1Id or i == card2Id) {
+                        {
+                            id = room.gameBoard[i].id;
+                            value = room.gameBoard[i].value;
+                            revealed = false;
+                        }
+                    } else {
+                        room.gameBoard[i]
+                    }
+                });
+                
+                rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
+                    players = room.players;
+                    gameBoard = updatedGameBoard;
+                    currentPlayer = room.currentPlayer;
+                    gameStarted = room.gameStarted;
+                }).0;
+            };
+            case null {};
         };
     };
 
