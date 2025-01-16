@@ -44,13 +44,39 @@ actor MemoryGame {
         
         // Create initial game board with pairs of cards
         let symbols = ["🎮", "🎲", "🎯", "🎪", "🎨", "🎭", "🎸", "🎺"];
-        let initialBoard = Array.tabulate<Card>(16, func(i) {
-            {
-                id = i;
-                value = symbols[i / 2];  // Each symbol appears twice
-                revealed = false;
-            }
+        var cards: [var Card] = Array.init<Card>(16, {
+            id = 0;
+            value = "";
+            revealed = false;
         });
+        
+        // First, create pairs
+        var index = 0;
+        for (symbol in symbols.vals()) {
+            cards[index] := {
+                id = index;
+                value = symbol;
+                revealed = false;
+            };
+            cards[index + 1] := {
+                id = index + 1;
+                value = symbol;
+                revealed = false;
+            };
+            index += 2;
+        };
+        
+        // Simple array swap shuffle
+        var i = cards.size();
+        while (i > 1) {
+            i -= 1;
+            let temp = cards[i];
+            cards[i] := cards[0];
+            cards[0] := temp;
+        };
+        
+        // Convert to immutable array
+        let initialBoard = Array.tabulate<Card>(16, func(i) = cards[i]);
         
         switch (existingRoom) {
             case (?_) return "Bu oda zaten mevcut.";
@@ -59,7 +85,7 @@ actor MemoryGame {
                     players = [{ id = playerId; score = 0 }];
                     gameBoard = initialBoard;
                     currentPlayer = playerId;
-                    gameStarted = true;  // Start game immediately for testing
+                    gameStarted = true;
                 };
 
                 rooms := Trie.put(

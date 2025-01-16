@@ -156,9 +156,6 @@ const MemoryGame: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const myScore = gameState.players.find(p => p.id === currentPrincipal)?.score || 0;
-  const opponentScore = gameState.players.find(p => p.id !== currentPrincipal)?.score || 0;
-
   return (
     <div className="game-container">
       {error && (
@@ -167,26 +164,37 @@ const MemoryGame: React.FC = () => {
         </div>
       )}
       
-      <div className="scores-container">
-        <div className="score">You: {myScore}</div>
-        <div className="score">Opponent: {opponentScore}</div>
-      </div>
-
-      <div className={`turn-indicator ${isMyTurn ? 'my-turn' : ''}`}>
-        {isMyTurn ? "Your turn" : "Opponent's turn"}
+      <div className="game-header">
+        <div className="scores-container">
+          <div className={`score ${isMyTurn ? 'active' : ''}`}>
+            You: {gameState?.players.find(p => p.id === currentPrincipal)?.score || 0}
+          </div>
+          <div className={`score ${!isMyTurn ? 'active' : ''}`}>
+            Opponent: {gameState?.players.find(p => p.id !== currentPrincipal)?.score || 0}
+          </div>
+        </div>
+        
+        <div className="turn-indicator">
+          {isMyTurn ? "Your Turn" : "Opponent's Turn"}
+        </div>
       </div>
 
       <div className="game-board">
-        {gameState.gameBoard.map((card, index) => (
-          <Card
+        {gameState?.gameBoard.map((card, index) => (
+          <div
             key={card.id}
-            card={{
-              ...card,
-              revealed: card.revealed || temporaryRevealedCards.includes(index)
-            }}
-            onClick={() => !isProcessingMove && handleCardClick(index)}
-            disabled={!isMyTurn || isProcessingMove}
-          />
+            className={`card ${card.revealed || temporaryRevealedCards.includes(index) ? 'flipped' : ''}`}
+            onClick={() => handleCardClick(index)}
+          >
+            <div className="card-inner">
+              <div className="card-front">
+                ?
+              </div>
+              <div className="card-back">
+                {card.value}
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 
