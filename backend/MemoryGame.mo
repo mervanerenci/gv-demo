@@ -320,7 +320,7 @@ actor MemoryGame {
                     } else {
                         Debug.print("No match - hiding cards");
                         // No match - hide both cards after delay
-                        let timerId = Timer.setTimer<system>(#seconds(2), func() : async () {
+                        let timerId = Timer.setTimer<system>(#seconds(1), func() : async () {
                             let nextPlayer = if (room.players[0].id == playerId) {
                                 room.players[1].id
                             } else {
