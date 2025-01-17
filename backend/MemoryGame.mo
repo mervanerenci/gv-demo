@@ -13,7 +13,7 @@ import Timer "mo:base/Timer";
 
 actor MemoryGame {
 
-    // Oda bilgileri
+    // Room information
     type Room = {
         players: [Player];
         gameBoard: [Card];
@@ -21,13 +21,13 @@ actor MemoryGame {
         gameStarted: Bool;
     };
 
-    // Oyuncu bilgileri
+    // Player information
     type Player = {
         id: Principal;
         score: Nat;
     };
 
-    // Kart bilgileri
+    // Card information
     type Card = {
         id: Nat;
         value: Text;
@@ -35,11 +35,11 @@ actor MemoryGame {
         matched: Bool;
     };
 
-    // Tüm odaları tutan harita
+    // All rooms map
     var rooms: Trie.Trie<Text, Room> = Trie.empty();
     var pendingTimers: Trie.Trie<Text, Timer.TimerId> = Trie.empty();
 
-    // Oda oluşturma
+    // Create room
     public shared(msg) func createRoom(): async Text {
         let playerId = msg.caller;
         let roomId = "room_" # Nat.toText(Int.abs(Time.now()));
@@ -106,7 +106,7 @@ actor MemoryGame {
         };
     };
 
-    // Odaya katılma
+    // Join room
     public shared(msg) func joinRoom(roomId: Text): async Text {
         let playerId = msg.caller;
         let roomOpt = Trie.get(rooms, keyText(roomId), Text.equal);
@@ -155,7 +155,7 @@ actor MemoryGame {
         };
     };
 
-    // Oyunu başlat
+    // Start game
     private func startGame(roomId: Text) {
         let roomOpt = Trie.get(rooms, keyText(roomId), Text.equal);
         switch (roomOpt) {
@@ -179,7 +179,7 @@ actor MemoryGame {
         };
     };
 
-    // Oyunun durumunu görüntüleme
+    // View game state
     public shared(msg) func viewGame(roomId: Text): async { 
         gameBoard: [Card]; 
         currentPlayer: Principal;
@@ -220,7 +220,7 @@ actor MemoryGame {
         };
     };
 
-    // Oyuncunun bir kartı açması
+    // Player moves a card
     public shared(msg) func move(roomId: Text, cardIndex: Nat): async Text {
         let playerId = msg.caller;
         let roomOpt = Trie.get(rooms, keyText(roomId), Text.equal);
@@ -358,7 +358,7 @@ actor MemoryGame {
         };
     };
 
-    // Skor durumu
+    // Score status
     public func getScores(roomId: Text): async [Player] {
         let roomOpt = Trie.get(rooms, keyText(roomId), Text.equal);
         switch (roomOpt) {
