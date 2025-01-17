@@ -155,3 +155,8 @@
     gap: 0.5rem;
   }
 }
+
+.card.disabled {
+  pointer-events: none;
+  opacity: 0.8;
+}

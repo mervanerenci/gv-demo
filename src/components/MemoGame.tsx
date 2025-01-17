@@ -103,6 +103,11 @@ const MemoryGame: React.FC = () => {
 
   const handleCardClick = async (cardIndex: number) => {
     try {
+      if (!isMyTurn) {
+        setError("It's not your turn!");
+        return;
+      }
+
       if (!gameId || isProcessingMove) return;
       if (!gameState) return;
 
@@ -199,8 +204,9 @@ const MemoryGame: React.FC = () => {
         {gameState?.gameBoard.map((card, index) => (
           <div
             key={card.id}
-            className={`card ${card.revealed || temporaryRevealedCards.includes(index) ? 'flipped' : ''}`}
+            className={`card ${card.revealed || temporaryRevealedCards.includes(index) ? 'flipped' : ''} ${!isMyTurn ? 'disabled' : ''}`}
             onClick={() => handleCardClick(index)}
+            style={{ cursor: isMyTurn ? 'pointer' : 'not-allowed' }}
           >
             <div className="card-inner">
               <div className="card-front">
