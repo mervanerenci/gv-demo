@@ -32,7 +32,6 @@ actor MemoryGame {
         id: Nat;
         value: Text;
         revealed: Bool;
-        matched: Bool;
     };
 
     // Tüm odaları tutan harita
@@ -51,7 +50,6 @@ actor MemoryGame {
             id = 0;
             value = "";
             revealed = false;
-            matched = false;
         });
         
         // First, create pairs
@@ -61,13 +59,11 @@ actor MemoryGame {
                 id = index;
                 value = symbol;
                 revealed = false;
-                matched = false;
             };
             cards[index + 1] := {
                 id = index + 1;
                 value = symbol;
                 revealed = false;
-                matched = false;
             };
             index += 2;
         };
@@ -236,16 +232,6 @@ actor MemoryGame {
                     return "Card already revealed";
                 };
 
-                // Count currently revealed non-matching cards before revealing new card
-                let currentlyRevealed = Array.filter<Card>(room.gameBoard, func(c: Card) { 
-                    c.revealed and not c.matched 
-                });
-
-                // If two non-matching cards are already revealed, don't allow a new move
-                if (currentlyRevealed.size() >= 2) {
-                    return "Wait for cards to be hidden";
-                };
-
                 // Reveal the new card
                 let updatedGameBoard = Array.tabulate<Card>(room.gameBoard.size(), func(i) {
                     if (i == cardIndex) {
@@ -253,17 +239,15 @@ actor MemoryGame {
                             id = room.gameBoard[i].id;
                             value = room.gameBoard[i].value;
                             revealed = true;
-                            matched = room.gameBoard[i].matched;
                         }
                     } else {
                         room.gameBoard[i]
                     }
                 });
 
-                // Get currently revealed unmatched cards AFTER revealing the new card
-                let revealedCards = Array.filter<Card>(updatedGameBoard, func(c: Card) { 
-                    c.revealed and not c.matched 
-                });
+                // Get currently revealed cards AFTER revealing the new card
+                let revealedCards = Array.filter<Card>(updatedGameBoard, func(c: Card) { c.revealed });
+                Debug.print("Currently revealed cards: " # debug_show(revealedCards.size()));
 
                 // First update the board with the newly revealed card
                 rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
@@ -282,26 +266,12 @@ actor MemoryGame {
 
                     if (firstCard.value == secondCard.value) {
                         Debug.print("Match found!");
-                        // Match found - update score and mark cards as matched
+                        // Match found - update score
                         let updatedPlayers = Array.map<Player, Player>(room.players, func(p: Player): Player {
                             if (p.id == playerId) {
                                 { id = p.id; score = p.score + 1 }
                             } else {
                                 p
-                            }
-                        });
-
-                        let matchedGameBoard = Array.tabulate<Card>(updatedGameBoard.size(), func(i) {
-                            let card = updatedGameBoard[i];
-                            if (card.revealed and (card.value == firstCard.value)) {
-                                {
-                                    id = card.id;
-                                    value = card.value;
-                                    revealed = true;
-                                    matched = true;
-                                }
-                            } else {
-                                card
                             }
                         });
 
@@ -313,7 +283,7 @@ actor MemoryGame {
                         
                         rooms := Trie.put(rooms, keyText(roomId), Text.equal, {
                             players = updatedPlayers;
-                            gameBoard = matchedGameBoard;
+                            gameBoard = updatedGameBoard;
                             currentPlayer = nextPlayer;
                             gameStarted = room.gameStarted;
                         }).0;
@@ -327,15 +297,14 @@ actor MemoryGame {
                                 room.players[0].id
                             };
                             
-                            // Hide both cards that are revealed but not matched
+                            // Hide both cards using their actual indices
                             let finalGameBoard = Array.tabulate<Card>(updatedGameBoard.size(), func(i) {
                                 let card = updatedGameBoard[i];
-                                if (card.revealed and not card.matched) {
+                                if (card.revealed and (card.value == firstCard.value or card.value == secondCard.value)) {
                                     {
                                         id = card.id;
                                         value = card.value;
                                         revealed = false;
-                                        matched = false;
                                     }
                                 } else {
                                     card
