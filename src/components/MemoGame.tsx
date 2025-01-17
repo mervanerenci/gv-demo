@@ -144,6 +144,19 @@ const MemoryGame: React.FC = () => {
     }
   };
 
+  // Helper function to get player scores
+  const getPlayerScores = useMemo(() => {
+    if (!gameState || !currentPrincipal) return { myScore: 0, opponentScore: 0 };
+    
+    const myPlayer = gameState.players.find(p => p.id === currentPrincipal);
+    const opponentPlayer = gameState.players.find(p => p.id !== currentPrincipal);
+    
+    return {
+      myScore: myPlayer?.score || 0,
+      opponentScore: opponentPlayer?.score || 0
+    };
+  }, [gameState, currentPrincipal]);
+
   if (!isAuthenticated) {
     return (
       <div className="login-screen">
@@ -170,10 +183,10 @@ const MemoryGame: React.FC = () => {
       <div className="game-header">
         <div className="scores-container">
           <div className={`score ${isMyTurn ? 'active' : ''}`}>
-            Player 1: {gameState?.players.find(p => p.id === currentPrincipal)?.score || 0}
+            You: {getPlayerScores.myScore}
           </div>
           <div className={`score ${!isMyTurn ? 'active' : ''}`}>
-            Player 2: {gameState?.players.find(p => p.id !== currentPrincipal)?.score || 0}
+            Opponent: {getPlayerScores.opponentScore}
           </div>
         </div>
         
