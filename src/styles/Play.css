@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  /*background-color: #0f172a;*/
 }
 
 .nav-header {
@@ -11,11 +11,15 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
+  padding: 1rem;
+  background: #1e293b;
+  border-radius: 12px;
+  border: 1px solid #334155;
 }
 
 .nav-header h1 {
   font-size: 2.5rem;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
@@ -45,24 +49,32 @@
 }
 
 .option-card {
-  background: white;
+  background: #1e293b;
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  border: 1px solid #334155;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .option-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px) rotateX(2deg);
+  border-color: #059669;
+  box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2),
+              0 0 0 1px rgba(5, 150, 105, 0.4);
 }
 
 .option-card h2 {
+  color: #ffffff;
   margin: 0 0 1rem 0;
-  color: #1f2937;
 }
 
 .option-card p {
-  color: #6b7280;
+  color: #a0a0a0;
   margin-bottom: 1.5rem;
 }
 
@@ -77,13 +89,13 @@
 }
 
 .create-button {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   color: white;
 }
 
 .create-button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
 }
 
 .join-input-group {
@@ -93,25 +105,28 @@
 }
 
 .join-input-group input {
+  width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e5e7eb;
+  background: #334155;
+  border: 1px solid #475569;
   border-radius: 8px;
-  font-size: 1rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
   transition: border-color 0.2s ease;
 }
 
 .join-input-group input:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: #059669;
 }
 
 .join-button {
-  background: #4f46e5;
+  background: #059669;
   color: white;
 }
 
 .join-button:hover:not(:disabled) {
-  background: #4338ca;
+  background: #047857;
 }
 
 .join-button:disabled,
@@ -125,20 +140,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
 .auth-card {
-  background: white;
+  background: #1a1a1a;
   padding: 3rem;
   border-radius: 20px;
+  border: 1px solid #2a2a2a;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .auth-card h1 {
   margin: 0 0 1rem 0;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -146,7 +162,7 @@
 .auth-button {
   margin-top: 1.5rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -157,5 +173,27 @@
 
 .auth-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-button {
+  padding: 0.75rem 1.5rem;
+  background: #334155;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: #475569;
+  transform: translateY(-1px);
 }

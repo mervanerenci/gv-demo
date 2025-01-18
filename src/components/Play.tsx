@@ -55,7 +55,12 @@ const Play: React.FC = () => {
   return (
     <div className="play-container">
       <div className="nav-header">
-        <h1>Memory Game</h1>
+        <div className="nav-left">
+          <button className="back-button" onClick={() => navigate('/')}>
+            ← Back to Games
+          </button>
+          <h1>Memory Game</h1>
+        </div>
         <button className="logout-button" onClick={logout}>
           Disconnect
         </button>

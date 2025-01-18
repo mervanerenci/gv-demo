@@ -1,0 +1,213 @@
+.games-container {
+  min-height: 100vh;
+  padding: 2rem;
+  /*background-color: #0f172a;*/
+  color: #ffffff;
+}
+
+.games-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.games-header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #e2e8f0;
+  font-size: 1.2rem;
+}
+
+.featured-section {
+  margin-bottom: 4rem;
+}
+
+.featured-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #f1f5f9;
+}
+
+.featured-game {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.featured-game:hover {
+  transform: translateY(-8px) rotateX(2deg);
+  border-color: #059669;
+  box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2),
+              0 0 0 1px rgba(5, 150, 105, 0.4);
+}
+
+.featured-content {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.game-icon {
+  font-size: 4rem;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  height: 100px;
+}
+
+.game-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.game-info p {
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.game-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.game-meta span {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.category {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+}
+
+.play-button {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-end;
+}
+
+.play-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+}
+
+.games-section {
+  margin-top: 4rem;
+}
+
+.games-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #f1f5f9;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.game-card {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.game-card:hover {
+  transform: translateY(-8px) rotateX(2deg);
+  border-color: #8b5cf6;
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2),
+              0 0 0 1px rgba(139, 92, 246, 0.4);
+}
+
+.game-details h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.game-details p {
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .featured-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .play-button {
+    align-self: center;
+  }
+
+  .game-meta {
+    justify-content: center;
+  }
+}
+
+.games-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.logout-button {
+  padding: 0.75rem 1.5rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
