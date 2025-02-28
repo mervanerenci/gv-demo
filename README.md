@@ -53,13 +53,22 @@ When ready, run `dfx deploy --network ic` to deploy your application to the Inte
 - Install a Motoko package by running `npx ic-mops add <package-name>`. Here is a [list of available packages](https://mops.one/).
 - Split your frontend and backend console output by running `npm run frontend` and `npm run backend` in separate terminals.
 
-<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="200"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/42fcbaaa-b8c0-46bf-83f6-75008290015e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/5ff33bd7-1177-4f37-a2a1-e12aae58fcde" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/7e36d476-fac9-4764-9f83-d14faa133d46" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="400"/>
+
+![2](https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e) ![4]()
 
 
-![2](https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e) ![4](https://github.com/user-attachments/assets/42fcbaaa-b8c0-46bf-83f6-75008290015e)
-
-
-![3](https://github.com/user-attachments/assets/5ff33bd7-1177-4f37-a2a1-e12aae58fcde)![5](https://github.com/user-attachments/assets/7e36d476-fac9-4764-9f83-d14faa133d46)
+![3]()![5](https://github.com/user-attachments/assets/7e36d476-fac9-4764-9f83-d14faa133d46)
 
 ![6](https://github.com/user-attachments/assets/66d3d538-2d7c-43b0-a53d-9ce56e223221)![7](https://github.com/user-attachments/assets/44501174-3ed8-4117-9275-ee89ca23f5e7)
 
