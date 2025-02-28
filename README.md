@@ -53,17 +53,17 @@ When ready, run `dfx deploy --network ic` to deploy your application to the Inte
 - Install a Motoko package by running `npx ic-mops add <package-name>`. Here is a [list of available packages](https://mops.one/).
 - Split your frontend and backend console output by running `npm run frontend` and `npm run backend` in separate terminals.
 
-<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/42fcbaaa-b8c0-46bf-83f6-75008290015e" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/5ff33bd7-1177-4f37-a2a1-e12aae58fcde" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/7e36d476-fac9-4764-9f83-d14faa133d46" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/66d3d538-2d7c-43b0-a53d-9ce56e223221" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/44501174-3ed8-4117-9275-ee89ca23f5e7" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/22e8bad1-04d3-41d0-a077-1a68e3961dd5" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/8bd428f9-c74a-46c1-abd4-82d2d621d68b" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/61d89e58-7787-4741-88d0-c2169e0fcd8a" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/fed44abc-2e16-4e7c-acde-730172111648" alt="drawing" width="300"/>
-<img src="https://github.com/user-attachments/assets/ce6d1e3c-9ff4-48b5-8f59-d344999c53b2" alt="drawing" width="300"/>
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/42fcbaaa-b8c0-46bf-83f6-75008290015e" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/5ff33bd7-1177-4f37-a2a1-e12aae58fcde" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/7e36d476-fac9-4764-9f83-d14faa133d46" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/66d3d538-2d7c-43b0-a53d-9ce56e223221" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/44501174-3ed8-4117-9275-ee89ca23f5e7" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/22e8bad1-04d3-41d0-a077-1a68e3961dd5" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/8bd428f9-c74a-46c1-abd4-82d2d621d68b" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/61d89e58-7787-4741-88d0-c2169e0fcd8a" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/fed44abc-2e16-4e7c-acde-730172111648" alt="drawing" width="450"/>
+<img src="https://github.com/user-attachments/assets/ce6d1e3c-9ff4-48b5-8f59-d344999c53b2" alt="drawing" width="450"/>
 
 
 
