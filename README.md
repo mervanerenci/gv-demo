@@ -53,6 +53,9 @@ When ready, run `dfx deploy --network ic` to deploy your application to the Inte
 - Install a Motoko package by running `npx ic-mops add <package-name>`. Here is a [list of available packages](https://mops.one/).
 - Split your frontend and backend console output by running `npm run frontend` and `npm run backend` in separate terminals.
 
+<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="200"/>
+
+
 ![2](https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e) ![4](https://github.com/user-attachments/assets/42fcbaaa-b8c0-46bf-83f6-75008290015e)
 
 
