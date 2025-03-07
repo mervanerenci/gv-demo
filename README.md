@@ -1,69 +1,60 @@
-# Vite + React + Motoko
+![gv-banner-1(1)](https://github.com/user-attachments/assets/61edc072-d8ff-47fe-b8d5-1e7c1304067c)
+ 
+# Game Versus
 
-### Get started directly in your browser:
+**Game Versus** is a fully on-chain multiplayer gaming platform built on the Internet Computer (ICP). It offers a diverse collection of classic and innovative games where players can compete head-to-head and securely wager Ether using a subaccount-enabled credits system. Designed to be mobile-friendly and intuitive, Game Versus combines engaging gameplay with the transparency and security of decentralized technology.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rvanasa/vite-react-motoko)
+---
 
-This template gives you everything you need to build a full-stack Web3 application on the [Internet Computer](https://internetcomputer.org/).
+## Features
 
-For an example of a real-world dapp built using this starter project, check out the [source code](https://github.com/dfinity/feedback) for DFINITY's [Developer Experience Feedback Board](https://dx.internetcomputer.org/).
+- **On-Chain Gaming:**  
+  All game logic and transactions run on the Internet Computer, ensuring transparency and fairness.
 
-## 📦 Create a New Project
+- **Real-Time Multiplayer:**  
+  Enjoy seamless gameplay and instant interactions in head-to-head matches.
 
-Make sure that [Node.js](https://nodejs.org/en/) `>= 16` and [`dfx`](https://internetcomputer.org/docs/current/developer-docs/build/install-upgrade-remove) `>= 0.14` are installed on your system.
+- **Secure Betting:**  
+  Place bets using a robust, subaccount-enabled credits system integrated with secure on-chain transactions.
 
-Run the following commands in a new, empty project directory:
+- **Diverse Game Library:**  
+  Play a wide range of games including:
+  - Snake and Ladder
+  - Tic Tac Toe
+  - Zar Oyunu Şans Kapışmacası
+  - Dama (Checkers)
+  - Connect 4
+  - Hi Low
+  - Battleships
+  - Colors Game / Chain Reaction Game
+  - Color Guess
+  - Dots and Boxes
+  - Memory Game
 
-```sh
-npx degit rvanasa/vite-react-motoko # Download this starter project
-dfx start --clean --background # Run dfx in the background
-npm run setup # Install packages, deploy canisters, and generate type bindings
+- **Social & Competitive Elements:**  
+  Create profiles, add friends, join game rooms, track scores, and climb the leaderboards.
 
-npm start # Start the development server
-```
+- **Mobile-Friendly Design:**  
+  Optimized for both desktop and mobile devices for on-the-go gaming.
 
-When ready, run `dfx deploy --network ic` to deploy your application to the Internet Computer.
+---
 
-## 🛠️ Technology Stack
+---
 
-- [Vite](https://vitejs.dev/): high-performance tooling for front-end web development
-- [React](https://reactjs.org/): a component-based UI library
-- [TypeScript](https://www.typescriptlang.org/): JavaScript extended with syntax for types
-- [Sass](https://sass-lang.com/): an extended syntax for CSS stylesheets
-- [Prettier](https://prettier.io/): code formatting for a wide range of supported languages
-- [Motoko](https://github.com/dfinity/motoko#readme): a safe and simple programming language for the Internet Computer
-- [Mops](https://mops.one): an on-chain community package manager for Motoko
-- [mo-dev](https://github.com/dfinity/motoko-dev-server#readme): a live reload development server for Motoko
-- [@ic-reactor](https://github.com/B3Pay/ic-reactor): A suite of JavaScript libraries for seamless frontend development on the Internet Computer
+## License
 
-## 📚 Documentation
+This project is licensed under the [GPL-2 License](./LICENSE).
 
-- [Vite developer docs](https://vitejs.dev/guide/)
-- [React quick start guide](https://react.dev/learn)
-- [Internet Computer docs](https://internetcomputer.org/docs/current/developer-docs/ic-overview)
-- [`dfx.json` reference schema](https://internetcomputer.org/docs/current/references/dfx-json-reference/)
-- [Motoko developer docs](https://internetcomputer.org/docs/current/developer-docs/build/cdks/motoko-dfinity/motoko/)
-- [Mops usage instructions](https://j4mwm-bqaaa-aaaam-qajbq-cai.ic0.app/#/docs/install)
-- [@ic-reactor/react](https://b3pay.github.io/ic-reactor/modules/react.html)
+---
 
-## 💡 Tips and Tricks
+## Contact & Community
 
-- Customize your project's code style by editing the `.prettierrc` file and then running `npm run format`.
-- Reduce the latency of update calls by passing the `--emulator` flag to `dfx start`.
-- Install a Motoko package by running `npx ic-mops add <package-name>`. Here is a [list of available packages](https://mops.one/).
-- Split your frontend and backend console output by running `npm run frontend` and `npm run backend` in separate terminals.
-
-<img src="https://github.com/user-attachments/assets/d3ec2f58-193d-43ce-b907-91cfee91c85e" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/42fcbaaa-b8c0-46bf-83f6-75008290015e" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/5ff33bd7-1177-4f37-a2a1-e12aae58fcde" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/7e36d476-fac9-4764-9f83-d14faa133d46" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/66d3d538-2d7c-43b0-a53d-9ce56e223221" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/44501174-3ed8-4117-9275-ee89ca23f5e7" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/22e8bad1-04d3-41d0-a077-1a68e3961dd5" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/8bd428f9-c74a-46c1-abd4-82d2d621d68b" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/61d89e58-7787-4741-88d0-c2169e0fcd8a" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/fed44abc-2e16-4e7c-acde-730172111648" alt="drawing" width="450"/>
-<img src="https://github.com/user-attachments/assets/ce6d1e3c-9ff4-48b5-8f59-d344999c53b2" alt="drawing" width="450"/>
+- **Instagram:** [Join our community](https://www.instagram.com/gameversus_/)
+- **X:** [support@example.com](https://x.com/gameVersus_)
 
 
+---
 
+Current demo live on mainnet: https://dbsbs-4iaaa-aaaap-qpxjq-cai.icp0.io/
+
+**Game Versus** – The ultimate on-chain multiplayer gaming experience on the Internet Computer!
